@@ -118,11 +118,16 @@
       .fromTo(dugaPut, { strokeDasharray: '2 10', opacity: 0 }, { opacity: 0.8, duration: 0.2 }, 0)
       .to('#arka', { rotateY: -10, rotateX: 4, scale: 1.06, ease: 'none', duration: 1 }, 0)
       .to('#arka img', { yPercent: -10, scale: 1.08, ease: 'none', duration: 1 }, 0)
-      .to('#zag .slovo', { yPercent: -40, opacity: 0.25, stagger: 0.04, ease: 'none', duration: 0.6 }, 0.4)
-      .to('.hero .pod, .hero .fishki', { y: -60, opacity: 0, ease: 'none', duration: 0.5 }, 0.45)
       .to('#reliefG', { rotation: 8, scale: 1.12, transformOrigin: '50% 50%', ease: 'none', duration: 1 }, 0)
       .to('.flazhok .tkan', { skewY: -8, scaleX: 0.9, ease: 'sine.inOut', duration: 0.5, yoyo: true, repeat: 1 }, 0.5)
       .to(myach, { scale: 0.4, opacity: 0, duration: 0.15 }, 0.9);
+    // Заголовок и строки гаснут только на компьютере, где первый экран закреплён.
+    // На телефоне они остаются: иначе под кнопкой пустая полоса (автор 2026-11-09).
+    if (innerWidth >= 960) {
+      heroTl
+        .to('#zag .slovo', { yPercent: -40, opacity: 0.25, stagger: 0.04, ease: 'none', duration: 0.6 }, 0.4)
+        .to('.hero .pod, .hero .fishki', { y: -60, opacity: 0, ease: 'none', duration: 0.5 }, 0.45);
+    }
 
     // Флажок колышется сам, тихо
     gsap.to('.flazhok .tkan', { skewY: 4, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });

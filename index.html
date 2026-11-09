@@ -20,8 +20,9 @@
   document.documentElement.classList.add('js');
   try { var t = localStorage.getItem('msa-tema'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
-<link rel="stylesheet" href="css/site.css?v=25964b0f">
-<link rel="stylesheet" href="css/razdely.css?v=25964b0f">
+<link rel="stylesheet" href="css/site.css?v=ec5b8ba2">
+<link rel="stylesheet" href="css/razdely.css?v=ec5b8ba2">
+<link rel="stylesheet" href="css/v4.css?v=ec5b8ba2">
 </head>
 <body>
 <a class="skip" href="#glavnoe">К содержанию</a>
@@ -40,17 +41,20 @@
       <a class="knopka knopka-mal" href="https://ig.me/m/minkail_dobro" target="_blank" rel="noopener">Записаться</a>
     </div>
   </nav>
-  <div class="put" aria-hidden="true"><i id="put"></i></div>
+  <div class="lunki" aria-hidden="true">
+    <span class="lunki-imya" id="lunkiImya"><b>Лунка 1</b> · Знакомство</span>
+    <span class="lunki-ryad" id="lunkiRyad"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="lunki-myach" id="lunkiMyach"></span></span>
+  </div>
 </header>
 
 <main id="glavnoe">
   <!-- 1. Первый удар -->
-  <section class="hero s-deep" id="hero">
+  <section class="hero s-deep" id="hero" data-lunka="1" data-imya="Знакомство">
     <div class="relief" aria-hidden="true"><svg id="relief" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"></svg></div>
     <div class="wrap">
       <div class="hero-tekst">
         <h1 id="zag"><span class="slovo">Гольф</span> <span class="slovo">в&nbsp;Грозном:</span> <span class="slovo">деловой</span> <span class="slovo">клуб</span> <span class="slovo"><em>с&nbsp;первого</em></span> <span class="slovo"><em>удара</em></span></h1>
-        <p class="pod">Обучаем с нуля предпринимателей и руководителей. За одно занятие: правила и этикет, постановка удара и первая игра.</p>
+        <p class="pod">Обучаем с нуля предпринимателей и руководителей. Одно занятие: правила, удар, первая игра.</p>
         <a class="knopka" id="start" href="https://ig.me/m/minkail_dobro" target="_blank" rel="noopener">
           Записаться в директ
           <span class="krug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -73,16 +77,55 @@
     <div class="vniz" aria-hidden="true">Листайте<i></i></div>
   </section>
 
+  <!-- Лунка 2. Удар пальцем -->
+  <section class="scena s-cream" id="udar" aria-labelledby="udarZag" data-lunka="2" data-imya="Первый удар">
+    <div class="wrap">
+      <h2 id="udarZag" class="pokaz">Попробуйте удар</h2>
+      <p class="vvod pokaz">Потяните мяч назад и отпустите. Чем сильнее тянете, тем дальше полёт. Цель: флажок.</p>
+      <div class="udar-pole" id="udarPole">
+        <svg id="udarSvg" viewBox="0 0 400 260" role="img" aria-label="Поле: мяч внизу слева, флажок с лункой справа вверху">
+          <path d="M-10 270 C 70 200, 130 190, 200 150 S 330 70, 410 50 L 410 270 Z" style="fill:var(--green-500)"/>
+          <path d="M-10 270 C 80 225, 160 215, 240 175 S 370 105, 410 95 L 410 270 Z" style="fill:var(--green-700)"/>
+          <ellipse cx="318" cy="96" rx="56" ry="18" style="fill:var(--green-300)"/>
+          <ellipse cx="326" cy="97" rx="6" ry="3" style="fill:var(--green-900)"/>
+          <path d="M326 97V34" style="stroke:var(--cream)" stroke-width="2.5"/>
+          <path id="udarFlag" d="M327 36l26 9-26 9z" style="fill:var(--flag)"/>
+          <rect x="44" y="214" width="56" height="20" rx="6" style="fill:var(--green-300)" opacity=".6" transform="rotate(-10 72 224)"/>
+          <path id="udarPricel" class="udar-pricel" d=""/>
+          <line id="udarTyaga" class="udar-tyaga" x1="0" y1="0" x2="0" y2="0" opacity="0"/>
+          <ellipse id="udarTen" cx="72" cy="222" rx="10" ry="3.5" fill="#000" opacity=".25"/>
+          <g id="udarMyach" class="udar-myach" transform="translate(72 214)">
+            <circle r="28" fill="transparent"/>
+            <circle r="10" fill="#fff" stroke="#12211A" stroke-width="1.2"/>
+            <circle cx="-3" cy="-3" r="1.3" fill="#C9C2AE"/><circle cx="3" cy="-4" r="1.3" fill="#C9C2AE"/><circle cx="0" cy="3" r="1.3" fill="#C9C2AE"/><circle cx="4" cy="2" r="1.3" fill="#C9C2AE"/>
+          </g>
+        </svg>
+        <p class="udar-podskazka" id="udarPodskazka"><span>☝</span>Потяните мяч назад и отпустите</p>
+      </div>
+      <div class="udar-niz">
+        <p class="udar-status" id="udarStatus" role="status" aria-live="polite">Мяч на старте.</p>
+        <span class="udar-schet" id="udarSchet">Ударов: 0</span>
+      </div>
+      <div class="udar-knopki">
+        <button class="knopka-tiho" type="button" id="udarAvto">Ударить без касания</button>
+        <a class="knopka udar-zapis" id="udarZapis" href="https://ig.me/m/minkail_dobro" target="_blank" rel="noopener" hidden>
+          Теперь на настоящее поле
+          <span class="krug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- 2. Зачем -->
-  <section class="scena s-cream" aria-labelledby="zachem">
+  <section class="scena s-deep" aria-labelledby="zachem" data-lunka="3" data-imya="Зачем">
     <div class="wrap">
       <h2 id="zachem" class="pokaz">Зачем руководителю гольф</h2>
-      <p class="vvod pokaz">Во многих странах гольф давно стал спортом деловых людей. На поле видно характер человека, стиль мышления и отношение к правилам.</p>
+      <p class="vvod pokaz">Во многих странах гольф давно стал спортом деловых людей. На поле виден характер.</p>
       <div class="karty">
-        <article class="karta"><span class="nomer">1</span><h3>Спокойные решения</h3><p>Здесь нельзя выиграть на эмоциях. Нужно видеть поле, рассчитать удар и держать внутреннее спокойствие.</p></article>
-        <article class="karta"><span class="nomer">2</span><h3>Концентрация</h3><p>Игра учит думать на несколько шагов вперёд и не суетиться. Тот же навык нужен в управлении компанией.</p></article>
-        <article class="karta"><span class="nomer">3</span><h3>Сильное окружение</h3><p>Клуб собирает предпринимателей и руководителей из разных сфер. Знакомства складываются в игре.</p></article>
-        <article class="karta"><span class="nomer">4</span><h3>Достойный отдых</h3><p>Свежий воздух, прогулка по полю и игра с правилами и этикетом. После неё голова работает лучше.</p></article>
+        <article class="karta"><span class="nomer">1</span><h3>Спокойные решения</h3><p>На эмоциях здесь не выиграть. Видите поле, считаете удар, держите спокойствие.</p></article>
+        <article class="karta"><span class="nomer">2</span><h3>Концентрация</h3><p>Думать на несколько шагов вперёд. Тот же навык нужен в управлении.</p></article>
+        <article class="karta"><span class="nomer">3</span><h3>Сильное окружение</h3><p>Предприниматели и руководители из разных сфер. Знакомства складываются в игре.</p></article>
+        <article class="karta"><span class="nomer">4</span><h3>Достойный отдых</h3><p>Свежий воздух, прогулка по полю, игра по правилам.</p></article>
       </div>
       <blockquote class="citata" id="citata1">
         <p>Гольф требует не силы, а точности, спокойствия и концентрации.</p>
@@ -91,8 +134,73 @@
     </div>
   </section>
 
+  <!-- Лунка 4. Гольф за 2 минуты -->
+  <section class="scena s-cream" id="kakIgrayut" aria-labelledby="dveMinuty" data-lunka="4" data-imya="Как играют">
+    <div class="wrap">
+      <h2 id="dveMinuty" class="pokaz">Гольф за 2 минуты</h2>
+      <p class="vvod pokaz">Так устроена одна лунка. Нажмите на часть поля.</p>
+      <div class="karta-lunki">
+        <div class="kl-shema">
+          <svg viewBox="0 0 400 480" aria-hidden="true">
+            <path d="M40 470 C 10 380, 70 330, 110 280 S 120 150, 210 80 C 270 30, 380 40, 370 120 C 360 190, 260 200, 240 280 S 230 420, 200 470 Z" style="fill:var(--green-700)" opacity=".55"/>
+            <path d="M75 450 C 55 370, 120 330, 150 270 S 160 150, 240 95 C 290 60, 350 80, 335 125 C 320 170, 245 185, 220 265 S 200 400, 175 450 Z" style="fill:var(--green-500)"/>
+            <rect x="96" y="410" width="66" height="34" rx="10" style="fill:var(--green-300)" transform="rotate(-8 129 427)"/>
+            <path d="M205 160 c 18 -14, 50 -8, 48 10 c -2 16, -34 22, -48 12 c -9 -6, -8 -15, 0 -22z" style="fill:var(--sand)"/>
+            <ellipse cx="292" cy="92" rx="50" ry="34" style="fill:var(--green-300)"/>
+            <circle cx="300" cy="90" r="4.5" style="fill:var(--green-900)"/>
+            <path d="M300 90V40" style="stroke:var(--cream)" stroke-width="2.5"/>
+            <path d="M301 42l24 9-24 9z" style="fill:var(--flag)"/>
+            <path d="M129 420 Q 140 330 175 275 T 296 94" fill="none" style="stroke:var(--cream)" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+          </svg>
+          <button class="kl-tochka" type="button" data-zona="0" aria-pressed="true" style="left:32%;top:88%"><span>1</span>Старт</button>
+          <button class="kl-tochka" type="button" data-zona="1" aria-pressed="false" style="left:44%;top:57%"><span>2</span>Фервей</button>
+          <button class="kl-tochka" type="button" data-zona="2" aria-pressed="false" style="left:80%;top:64%"><span>3</span>Раф</button>
+          <button class="kl-tochka" type="button" data-zona="3" aria-pressed="false" style="left:44%;top:31%"><span>4</span>Бункер</button>
+          <button class="kl-tochka" type="button" data-zona="4" aria-pressed="false" style="left:77%;top:8%"><span>5</span>Грин</button>
+        </div>
+        <div>
+          <div class="kl-info" id="klInfo" aria-live="polite">
+            <small id="klNomer">1 из 5</small>
+            <h3 id="klZag">Старт</h3>
+            <p id="klTekst">Здесь начинается каждая лунка. Мяч можно поставить на подставку, ти. Первый удар обычно самый дальний.</p>
+          </div>
+          <ul class="kl-cel">
+            <li><b>Цель</b>пройти лунку за наименьшее число ударов</li>
+            <li><b>Пар</b>сколько ударов нужно хорошему игроку на лунке: 3, 4 или 5</li>
+            <li><b>Поле</b>18 лунок, короткое поле: 9</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="klyushki-zag pokaz">Какая клюшка для чего</h3>
+      <div class="klyushki" tabindex="0" aria-label="Четыре вида клюшек, листайте вбок">
+        <article class="klyushka">
+          <svg viewBox="0 0 120 150" aria-hidden="true"><path d="M96 6 L52 112" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M52 108 C 30 104, 12 116, 14 132 C 16 146, 46 148, 62 134 C 70 126, 66 112, 52 108 Z" fill="currentColor"/></svg>
+          <h4>Драйвер</h4>
+          <p>Самый дальний удар, со старта. Большая лёгкая голова.</p>
+        </article>
+        <article class="klyushka">
+          <svg viewBox="0 0 120 150" aria-hidden="true"><path d="M96 6 L56 116" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 112 L60 120 L28 140 C 22 143, 18 136, 22 132 Z" fill="currentColor"/></svg>
+          <h4>Айрон</h4>
+          <p>Удары с фервея и рафа. Чем больше номер, тем выше и короче полёт.</p>
+        </article>
+        <article class="klyushka">
+          <svg viewBox="0 0 120 150" aria-hidden="true"><path d="M96 6 L58 112" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M58 108 L64 118 L36 146 C 28 150, 20 140, 26 134 Z" fill="currentColor"/></svg>
+          <h4>Ведж</h4>
+          <p>Короткие высокие удары у грина и выход из бункера.</p>
+        </article>
+        <article class="klyushka">
+          <svg viewBox="0 0 120 150" aria-hidden="true"><path d="M96 6 L62 124" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="22" y="122" width="56" height="14" rx="5" fill="currentColor"/></svg>
+          <h4>Паттер</h4>
+          <p>Катит мяч по грину в лунку. Им делают больше всего ударов за игру.</p>
+        </article>
+      </div>
+      <p class="klyushki-podpis">По правилам в сумке игрока до 14 клюшек. На занятии клюшки и мячи даёт клуб.</p>
+    </div>
+  </section>
+
   <!-- 3. Дорожка -->
-  <section class="scena s-deep" aria-labelledby="kak" id="scenaKak">
+  <section class="scena s-deep" aria-labelledby="kak" id="scenaKak" data-lunka="5" data-imya="Занятие">
     <div class="wrap">
       <h2 id="kak" class="pokaz">Как проходит занятие</h2>
       <p class="vvod pokaz">Сначала правила, потом поле. Занятие для новичков длится три-четыре часа.</p>
@@ -111,7 +219,7 @@
   </section>
 
   <!-- 4. Кто ведёт -->
-  <section class="scena s-cream" aria-labelledby="kto">
+  <section class="scena s-cream" aria-labelledby="kto" data-lunka="6" data-imya="Кто ведёт">
     <div class="wrap kto">
       <figure class="portret" id="portret">
         <img src="img/lekciya-600.webp" srcset="img/lekciya-600.webp 450w, img/lekciya.webp 900w" sizes="(min-width: 960px) 45vw, 100vw" width="900" height="1200" alt="Минкаил Ахмадов читает лекцию у флипчарта" loading="lazy">
@@ -136,12 +244,12 @@
   </section>
 
   <!-- 5. Поле -->
-  <section class="s-deep" aria-labelledby="gde">
+  <section class="s-deep" aria-labelledby="gde" data-lunka="7" data-imya="Поле">
     <div class="pole-foto" id="poleFoto">
       <img src="img/martan-chu-600.webp" srcset="img/martan-chu-600.webp 600w, img/martan-chu.webp 1200w" sizes="100vw" width="1200" height="900" alt="Поле у села Мартан-Чу, вдали горы и село" loading="lazy">
       <div class="wrap">
         <h2 id="gde">Где мы уже играли</h2>
-        <p>Своего поля в Чечне пока нет. Играем на площадках за городом, тренируемся на сетке и симуляторе.</p>
+        <p>Своего поля пока нет. Играем за городом, тренируемся на сетке и симуляторе.</p>
       </div>
     </div>
     <div class="scena" style="padding-top:80px">
@@ -162,7 +270,7 @@
   </section>
 
   <!-- 5а. Путь клуба -->
-  <section class="scena s-cream" aria-labelledby="putKluba">
+  <section class="scena s-cream" aria-labelledby="putKluba" data-lunka="7" data-imya="Путь клуба">
     <div class="wrap">
       <h2 id="putKluba" class="pokaz">Путь клуба</h2>
       <p class="vvod pokaz">С мая 2026 года: от первых ударов до учебных групп в Грозном.</p>
@@ -186,7 +294,7 @@
   </section>
 
   <!-- 5б. С кем работаем -->
-  <section class="scena s-deep" aria-labelledby="partnery">
+  <section class="scena s-deep" aria-labelledby="partnery" data-lunka="7" data-imya="Партнёры">
     <div class="wrap">
       <h2 id="partnery" class="pokaz">С кем работаем</h2>
       <ul class="partnery">
@@ -201,16 +309,16 @@
   </section>
 
   <!-- 6. Добро -->
-  <section class="dobro s-lime" aria-labelledby="dobro">
+  <section class="dobro s-lime" aria-labelledby="dobro" data-lunka="8" data-imya="Добро">
     <div class="wrap">
       <h2 id="dobro" class="pokaz">Игра, которая помогает</h2>
-      <p class="vvod pokaz">Выручку с семинаров по гольфу клуб направляет на благотворительность: в центр поддержки «МегаДобро» и поисково-спасательному отряду «Кавказ». Вы учитесь игре, а спасатели получают помощь.</p>
+      <p class="vvod pokaz">Выручка с семинаров идёт в центр «МегаДобро» и поисково-спасательный отряд «Кавказ». Вы учитесь игре, а спасатели получают помощь.</p>
     </div>
     <div class="beg" id="beg" aria-hidden="true"><span>Развитие и добро превыше всего</span><span>Развитие и добро превыше всего</span><span>Развитие и добро превыше всего</span></div>
   </section>
 
   <!-- 6а. Instagram -->
-  <section class="scena s-deep" aria-labelledby="insta">
+  <section class="scena s-deep" aria-labelledby="insta" data-lunka="8" data-imya="Instagram">
     <div class="wrap">
       <h2 id="insta" class="pokaz">Клуб в Instagram</h2>
       <p class="vvod pokaz">Ролики с тренировок, экзамена и первых игр. Новое Минкаил выкладывает в @minkail_dobro.</p>
@@ -228,7 +336,7 @@
   </section>
 
   <!-- 7. Вопросы -->
-  <section class="scena s-cream" aria-labelledby="voprosy">
+  <section class="scena s-cream" aria-labelledby="voprosy" data-lunka="9" data-imya="Вопросы">
     <div class="wrap">
       <h2 id="voprosy" class="pokaz">Вопросы и ответы</h2>
       <div class="voprosy">
@@ -246,7 +354,7 @@
   </section>
 
   <!-- 8. Лунка -->
-  <section class="final s-deep" aria-labelledby="final" id="scenaFinal">
+  <section class="final s-deep" aria-labelledby="final" id="scenaFinal" data-lunka="9" data-imya="Запись">
     <div class="wrap">
       <div class="grin" id="grin" aria-hidden="true"><div class="ploshad"></div><div class="dyra"></div><div class="shtok" id="shtok"></div><div class="m" id="finalM"></div></div>
       <h2 id="final" class="pokaz">Сделайте первый удар</h2>
@@ -268,9 +376,10 @@
   </div>
 </footer>
 
-<script src="js/vendor/gsap.min.js?v=25964b0f" defer></script>
-<script src="js/vendor/ScrollTrigger.min.js?v=25964b0f" defer></script>
-<script src="js/vendor/MotionPathPlugin.min.js?v=25964b0f" defer></script>
-<script src="js/site.js?v=25964b0f" defer></script>
+<script src="js/vendor/gsap.min.js?v=ec5b8ba2" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js?v=ec5b8ba2" defer></script>
+<script src="js/vendor/MotionPathPlugin.min.js?v=ec5b8ba2" defer></script>
+<script src="js/site.js?v=ec5b8ba2" defer></script>
+<script src="js/v4.js?v=ec5b8ba2" defer></script>
 </body>
 </html>

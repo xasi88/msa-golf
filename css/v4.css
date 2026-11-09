@@ -1,0 +1,78 @@
+/* MSA Golf Club, версия 4: сайт как поле из 9 лунок. Цвета только из переменных site.css. */
+
+/* Полоса 9 лунок в шапке */
+.lunki { display: flex; align-items: center; gap: 12px; padding: 0 16px 10px; max-width: var(--wrap); margin: 0 auto; }
+@media (min-width: 768px) { .lunki { padding: 0 40px 12px; } }
+.lunki-imya { flex: none; min-width: 128px; font-size: 13px; line-height: 1.2; color: var(--muted); white-space: nowrap; }
+.lunki-imya b { color: var(--hl); font-weight: 600; }
+.lunki-ryad { position: relative; flex: 1; display: flex; justify-content: space-between; align-items: center; height: 20px; }
+.lunki-ryad::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; border-top: 2px dashed var(--line); }
+.lunki-ryad i { position: relative; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); transition: background-color 300ms var(--ease), border-color 300ms var(--ease); }
+.lunki-ryad i.proshli { background: var(--accent); }
+.lunki-ryad i:last-of-type { border-color: var(--flag); }
+.lunki-myach { position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -2px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(212, 230, 43, .45), 0 2px 4px rgba(0, 0, 0, .3); transition: transform 120ms linear; will-change: transform; }
+.top:not(.plotno) .lunki { opacity: 1; }
+@media (max-width: 959px) { .hero { padding-top: 124px; } }
+@media (min-width: 960px) { .hero { padding-top: 160px; } }
+
+/* Лунка 2. Удар пальцем */
+.udar-pole { position: relative; margin-top: 32px; border-radius: var(--r-card); overflow: hidden; background: var(--cream-200); touch-action: none; user-select: none; -webkit-user-select: none; }
+.udar-pole svg { display: block; width: 100%; height: auto; }
+.udar-myach { cursor: grab; }
+.udar-myach:active { cursor: grabbing; }
+.udar-pricel { fill: none; stroke: var(--lime); stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; }
+.udar-tyaga { stroke: var(--flag); stroke-width: 3; stroke-linecap: round; }
+.udar-niz { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 20px; }
+.udar-status { margin: 0; font-size: 18px; min-height: 29px; color: var(--text); }
+.udar-status b { color: var(--hl); }
+.udar-schet { font-size: 14px; color: var(--muted); }
+.udar-knopki { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.knopka-tiho { min-height: 48px; padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); font: 600 15px/1.2 var(--sans); cursor: pointer; transition: border-color 200ms var(--ease); }
+.knopka-tiho:hover { border-color: var(--hl); }
+.udar-zapis[hidden] { display: none; }
+.udar-podskazka { position: absolute; left: 12px; top: 12px; margin: 0; display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; border-radius: 999px; background: var(--cream); color: var(--ink); font-size: 14px; pointer-events: none; transition: opacity 300ms var(--ease); box-shadow: 0 6px 16px rgba(0, 0, 0, .2); }
+.udar-podskazka span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--lime); }
+.udar-podskazka.skryt { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .udar-podskazka span { animation: udarPalec 1.6s var(--ease) infinite; }
+}
+@keyframes udarPalec { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-6px, 6px); } }
+
+/* Лунка 4. Гольф за 2 минуты */
+.karta-lunki { display: grid; gap: 24px; margin-top: 40px; align-items: start; }
+@media (min-width: 900px) { .karta-lunki { grid-template-columns: 1.1fr .9fr; gap: 48px; } }
+.kl-shema { position: relative; border-radius: var(--r-card); background: var(--bg2); overflow: hidden; }
+.kl-shema svg { display: block; width: 100%; height: auto; }
+.kl-tochka { position: absolute; transform: translate(-50%, -50%); min-width: 44px; height: 44px; padding: 0 14px 0 6px; border-radius: 999px; border: 0; background: var(--cream); color: var(--ink); display: inline-flex; align-items: center; gap: 8px; font: 600 14px/1 var(--sans); cursor: pointer; box-shadow: 0 6px 16px rgba(0, 0, 0, .25); transition: transform 300ms var(--ease), background-color 200ms var(--ease); }
+.kl-tochka span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--green-800); color: var(--cream); font-size: 13px; }
+.kl-tochka:hover { transform: translate(-50%, -50%) scale(1.05); }
+.kl-tochka[aria-pressed="true"] { background: var(--lime); color: var(--green-900); }
+.kl-tochka[aria-pressed="true"] span { background: var(--green-900); color: var(--lime); }
+.kl-info { border-radius: var(--r-card); background: var(--card); color: var(--card-text); padding: 28px; min-height: 220px; }
+.kl-info small { display: block; font-size: 14px; color: var(--card-muted); }
+.kl-info h3 { color: inherit; font-size: 36px; margin: 8px 0 12px; }
+.kl-info p { margin: 0; font-size: 17px; color: var(--card-muted); }
+.kl-info.mig { animation: klMig 400ms var(--ease); }
+@keyframes klMig { from { opacity: .3; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.kl-cel { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.kl-cel li { display: flex; gap: 12px; align-items: baseline; font-size: 16px; color: var(--muted); }
+.kl-cel b { flex: none; min-width: 64px; color: var(--hl); font-weight: 600; }
+
+/* Клюшки */
+.klyushki-zag { font-size: 32px; margin-top: 64px; }
+@media (min-width: 768px) { .klyushki-zag { font-size: 44px; } }
+.klyushki { display: grid; grid-auto-flow: column; grid-auto-columns: min(78%, 280px); gap: 16px; margin: 24px -16px 0; padding: 4px 16px 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; scrollbar-width: none; }
+.klyushki::-webkit-scrollbar { display: none; }
+@media (min-width: 960px) { .klyushki { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); margin: 32px 0 0; padding: 0; overflow: visible; } }
+.klyushka { scroll-snap-align: start; border-radius: var(--r-card); background: var(--bg2); padding: 20px 20px 24px; border: 1px solid var(--line); }
+.klyushka svg { width: 100%; height: 120px; color: var(--hl); }
+.klyushka h4 { font: 600 28px/1.05 var(--serif); color: var(--head); margin: 12px 0 8px; }
+.klyushka p { margin: 0; font-size: 16px; color: var(--muted); }
+.klyushki-podpis { font-size: 14px; color: var(--muted); margin: 16px 0 0; }
+
+/* Компьютер: поле игры и схема лунки не во весь экран */
+@media (min-width: 960px) {
+  .udar-pole { max-width: 760px; }
+  .udar-niz, .udar-knopki { max-width: 760px; }
+  .kl-shema { max-width: 500px; }
+}

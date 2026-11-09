@@ -38,8 +38,19 @@
   // Шапка плотнеет после первого экрана, полоска пути
   var shapka = document.getElementById('shapka');
   var put = document.getElementById('put');
+  var plav = document.getElementById('plav');
+  var heroEl = document.getElementById('hero');
+  var finalEl = document.getElementById('scenaFinal');
   function naScroll() {
     shapka.classList.toggle('plotno', scrollY > 40);
+    if (plav) {
+      var pokazat = scrollY > heroEl.offsetHeight - 120 && finalEl.getBoundingClientRect().top > innerHeight - 80;
+      if (pokazat !== plav.classList.contains('vidno')) {
+        plav.classList.toggle('vidno', pokazat);
+        plav.tabIndex = pokazat ? 0 : -1;
+        plav.setAttribute('aria-hidden', pokazat ? 'false' : 'true');
+      }
+    }
     var max = document.documentElement.scrollHeight - innerHeight;
     if (put) put.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
   }
@@ -67,6 +78,15 @@
       return;
     }
     gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+    // Адресная строка телефона прячется при листании: не пересчитывать всё заново
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    var shirokiy = innerWidth >= 960;
+    // Появление: элемент проявляется сразу у нижнего края экрана, без пустых мест
+    function poyavlenie(sel, ot) {
+      gsap.utils.toArray(sel).forEach(function (el) {
+        gsap.from(el, Object.assign({ y: 32, opacity: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top 100%', end: 'top 80%', scrub: 0.4 } }, ot || {}));
+      });
+    }
     var ease = 'power3.out';
 
     // 1. Первый удар: дуга от кнопки к арке
@@ -110,19 +130,21 @@
     gsap.from('#reliefG path', { strokeDasharray: 3000, strokeDashoffset: 3000, duration: 2.4, ease: 'power2.out', stagger: 0.04 });
 
     // Общий показ заголовков и абзацев по прокрутке
-    gsap.utils.toArray('.pokaz').forEach(function (el) {
-      gsap.from(el, { y: 48, opacity: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 62%', scrub: 0.6 } });
-    });
+    poyavlenie('.pokaz');
 
-    // 2. Карточки встают из глубины
-    gsap.from('.karta', {
-      y: 140, z: -260, rotateX: 28, opacity: 0, stagger: 0.12, ease: 'none',
-      scrollTrigger: { trigger: '.karty', start: 'top 95%', end: 'top 40%', scrub: 0.8 }
-    });
+    // 2. Карточки встают из глубины (на компьютере), на телефоне просто поднимаются
+    if (shirokiy) {
+      gsap.from('.karta', {
+        y: 140, z: -260, rotateX: 28, opacity: 0, stagger: 0.12, ease: 'none',
+        scrollTrigger: { trigger: '.karty', start: 'top 95%', end: 'top 55%', scrub: 0.8 }
+      });
+    } else {
+      poyavlenie('.karta', { y: 48, scale: 0.96 });
+    }
 
     // Слова цитат загораются
     ['#citata1', '#citata2'].forEach(function (id) {
-      gsap.to(id + ' .sl', { opacity: 1, stagger: 0.08, ease: 'none', scrollTrigger: { trigger: id, start: 'top 80%', end: 'bottom 55%', scrub: 0.5 } });
+      gsap.to(id + ' .sl', { opacity: 1, stagger: 0.08, ease: 'none', scrollTrigger: { trigger: id, start: 'top 90%', end: 'bottom 65%', scrub: 0.4 } });
     });
 
     // 3. Дорожка: лента едет вбок на компьютере, мяч катится к лунке
@@ -138,32 +160,38 @@
       gsap.from('.shag', { rotateY: -18, opacity: 0.3, stagger: 0.1, ease: 'none', scrollTrigger: { trigger: '#scenaKak', start: 'top 70%', end: 'top top', scrub: 0.6 } });
     });
     mm.add('(max-width: 959px)', function () {
-      gsap.from('.shag', { y: 80, opacity: 0, scale: 0.94, ease: 'none', stagger: 0.1, scrollTrigger: { trigger: '#lenta', start: 'top 90%', end: 'bottom 70%', scrub: 0.6 } });
+      poyavlenie('.shag', { y: 48, scale: 0.96 });
       gsap.to(farveiM, { left: 'calc(100% - 58px)', rotation: 720, ease: 'none', scrollTrigger: { trigger: '#lenta', start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
     });
 
     // 4. Портрет раскрывается шторкой, внутри параллакс
-    gsap.fromTo('#portret', { clipPath: 'inset(42% 12% 42% 12% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px)', ease: 'none', scrollTrigger: { trigger: '#portret', start: 'top 90%', end: 'top 30%', scrub: 0.7 } });
+    if (shirokiy) {
+      gsap.fromTo('#portret', { clipPath: 'inset(42% 12% 42% 12% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px)', ease: 'none', scrollTrigger: { trigger: '#portret', start: 'top 90%', end: 'top 30%', scrub: 0.7 } });
+    } else {
+      poyavlenie('#portret', { y: 40, scale: 0.94 });
+    }
     gsap.fromTo('#portret img', { yPercent: -12, scale: 1.2 }, { yPercent: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: '#portret', start: 'top bottom', end: 'bottom top', scrub: true } });
     // Цифры считаются
     document.querySelectorAll('.schet b[data-do]').forEach(function (b) {
       var to = +b.dataset.do, plus = b.dataset.plus || '', from = to > 2000 && to < 2100 ? 1990 : 0, o = { v: from };
-      gsap.to(o, { v: to, ease: 'none', scrollTrigger: { trigger: b, start: 'top 90%', end: 'top 55%', scrub: 0.6 },
+      gsap.to(o, { v: to, ease: 'none', scrollTrigger: { trigger: b, start: 'top 100%', end: 'top 70%', scrub: 0.4 },
         onUpdate: function () { b.textContent = Math.round(o.v) + (o.v >= to ? plus : ''); } });
     });
-    gsap.from('.schet div', { y: 40, opacity: 0, stagger: 0.1, ease: 'none', scrollTrigger: { trigger: '.schet', start: 'top 92%', end: 'top 60%', scrub: 0.6 } });
+    poyavlenie('.schet div');
 
     // 5. Поле приближается
     gsap.fromTo('#poleFoto img', { scale: 1.25, yPercent: -6 }, { scale: 1, yPercent: 6, ease: 'none', scrollTrigger: { trigger: '#poleFoto', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.from('#poleFoto h2', { y: 80, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#poleFoto', start: 'top 70%', end: 'top 20%', scrub: 0.6 } });
-    gsap.from('.sobytiya .os', { scaleY: 0, ease: 'none', scrollTrigger: { trigger: '#sobytiya', start: 'top 80%', end: 'bottom 70%', scrub: 0.6 } });
-    gsap.from('.sobytiya li', { x: 60, opacity: 0, stagger: 0.12, ease: 'none', scrollTrigger: { trigger: '#sobytiya', start: 'top 90%', end: 'bottom 75%', scrub: 0.6 } });
+    gsap.from('#poleFoto h2', { y: 48, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#poleFoto', start: 'top 85%', end: 'top 45%', scrub: 0.4 } });
+    poyavlenie('.galereya', { x: 48, y: 0 });
+    poyavlenie('.vrem li', { y: 24 });
+    poyavlenie('.partnery li');
+    poyavlenie('.ig', { x: 48, y: 0 });
 
     // 6. Бегущая строка от прокрутки
     gsap.fromTo('#beg', { xPercent: 0 }, { xPercent: -35, ease: 'none', scrollTrigger: { trigger: '#beg', start: 'top bottom', end: 'bottom top', scrub: 0.4 } });
 
     // 7. Вопросы
-    gsap.from('.voprosy details', { y: 30, opacity: 0, stagger: 0.06, ease: 'none', scrollTrigger: { trigger: '.voprosy', start: 'top 92%', end: 'top 50%', scrub: 0.5 } });
+    poyavlenie('.voprosy details', { y: 24 });
 
     // 8. Мяч катится и падает в лунку, флажок вздрагивает
     var fin = gsap.timeline({ scrollTrigger: { trigger: '#grin', start: 'top 90%', end: 'top 35%', scrub: 0.8 } });

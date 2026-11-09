@@ -1,0 +1,109 @@
+/* MSA Golf Club: телефон первым и разделы версии 3. Цвета только из переменных site.css. */
+
+/* Телефон: первый экран с фото, без пустых мест */
+@media (max-width: 959px) {
+  .hero { min-height: 0; padding: 88px 0 48px; }
+  .hero .wrap { gap: 24px; }
+  .arka-wrap { order: -1; }
+  .arka { width: 100%; aspect-ratio: 5 / 4; border-radius: 160px 160px 24px 24px; }
+  .arka img { height: 115%; object-position: 50% 30%; }
+  .flazhok { right: 6%; top: -28px; width: 44px; height: 84px; }
+  .podpis { display: none; }
+  .hero .pod { font-size: 18px; margin: 16px 0 24px; }
+  .fishki { margin-top: 24px; }
+  .scena { padding: 64px 0; }
+  .karty { margin-top: 40px; }
+  .karta { min-height: 0; padding: 24px; }
+  .karta .nomer { width: 48px; height: 48px; font-size: 24px; }
+  .karta h3 { font-size: 30px; margin: 24px 0 8px; }
+  .citata { margin-top: 56px; }
+  .dorozhka { margin-top: 40px; }
+  .shag { min-height: 0; padding: 24px; }
+  .shag .cifra { font-size: 60px; }
+  .shag h3 { font-size: 30px; padding-top: 24px; }
+  .shag-foto { min-height: 0; aspect-ratio: 4 / 3; }
+  .kto { gap: 32px; }
+  .portret { aspect-ratio: 4 / 5; }
+  .dobro { padding: 64px 0; }
+  .beg { margin-top: 40px; }
+  .final { padding: 80px 0 64px; }
+}
+@media (min-width: 600px) and (max-width: 959px) {
+  .arka { aspect-ratio: 16 / 9; border-radius: 240px 240px 24px 24px; }
+  .arka img { object-position: 50% 35%; }
+}
+@media (max-width: 479px) {
+  .hero h1 { font-size: 36px; }
+  .scena h2 { font-size: 36px; }
+  .dobro h2 { font-size: 36px; }
+  .final h2 { font-size: 36px; }
+  .citata p { font-size: 30px; }
+}
+@media (max-width: 599px) {
+  .schet { grid-template-columns: 1fr; gap: 8px; }
+  .schet div { display: flex; align-items: center; gap: 16px; padding: 16px 20px; }
+  .schet b { min-width: 96px; }
+  .schet span { margin: 0; font-size: 16px; }
+}
+
+/* Галерея поля: листать пальцем */
+.galereya { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 56px -16px 0; padding: 0 16px 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.galereya::-webkit-scrollbar { display: none; }
+.galereya figure { position: relative; flex: none; width: 72vw; max-width: 360px; margin: 0; aspect-ratio: 3 / 4; border-radius: var(--r-card); overflow: hidden; scroll-snap-align: start; background: var(--bg2); }
+.galereya img { width: 100%; height: 100%; object-fit: cover; }
+.galereya figcaption { position: absolute; left: 12px; bottom: 12px; padding: 8px 16px; border-radius: 999px; background: var(--green-900); color: var(--cream); font-size: 14px; }
+.gal-podpis { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
+@media (min-width: 768px) { .galereya { margin: 64px -40px 0; padding: 0 40px 8px; gap: 16px; } }
+@media (min-width: 1280px) { .galereya { margin-left: 0; margin-right: 0; padding: 0 0 8px; } .galereya figure { width: calc(25% - 12px); } .gal-podpis { display: none; } }
+
+/* Путь клуба */
+.vrem { list-style: none; margin: 48px 0 0; padding: 0; position: relative; display: grid; gap: 8px; max-width: 880px; }
+.vrem::before { content: ""; position: absolute; left: 7px; top: 12px; bottom: 12px; width: 2px; background: var(--line); }
+.vrem li { position: relative; display: grid; grid-template-columns: 88px 1fr; gap: 16px; padding: 12px 0 12px 32px; }
+.vrem li::before { content: ""; position: absolute; left: 0; top: 18px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+.vrem li.seychas::before { background: var(--lime); border-color: var(--lime); }
+.vrem time { font-weight: 600; font-size: 14px; color: var(--accent); padding-top: 4px; }
+.vrem b { display: block; font: 600 24px/1.15 var(--serif); color: var(--head); }
+.vrem span { display: block; margin-top: 4px; font-size: 16px; color: var(--muted); }
+/* Телефон и планшет: путь листается вбок, карточки по одной */
+@media (max-width: 959px) {
+  .vrem { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 40px -16px 0; padding: 24px 16px 8px; max-width: none; scrollbar-width: none; }
+  .vrem::-webkit-scrollbar { display: none; }
+  .vrem::before { display: none; }
+  .vrem li { flex: none; width: 72vw; max-width: 300px; display: block; padding: 24px 20px 20px; border-radius: 20px; background: var(--bg2); border: 1px solid var(--line); scroll-snap-align: start; }
+  .vrem li::before { left: 20px; top: -8px; }
+  .vrem time { display: block; padding: 0 0 8px; }
+  .vrem-podpis { display: block; }
+}
+@media (min-width: 768px) and (max-width: 959px) { .vrem { margin: 48px -40px 0; padding: 24px 40px 8px; } }
+@media (min-width: 960px) { .vrem { max-width: none; grid-template-columns: 1fr 1fr; column-gap: 48px; } .vrem::before { display: none; } }
+.vrem-podpis { display: none; font-size: 14px; color: var(--muted); margin: 12px 0 0; }
+
+/* С кем работаем */
+.partnery { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 700px) { .partnery { grid-template-columns: 1fr 1fr; gap: 16px; } }
+@media (min-width: 1100px) { .partnery { grid-template-columns: repeat(3, 1fr); } }
+.partnery li { border-radius: 20px; background: var(--bg2); border: 1px solid var(--line); padding: 20px 24px; display: grid; gap: 4px; transition: border-color 300ms var(--ease), transform 500ms var(--ease); }
+.partnery li:hover { border-color: var(--lime); transform: translateY(-2px); }
+.partnery b { font: 600 24px/1.15 var(--serif); color: var(--head); }
+.partnery span { font-size: 16px; color: var(--muted); }
+
+/* Instagram */
+.ig { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 40px -16px 0; padding: 0 16px 8px; scrollbar-width: none; }
+.ig::-webkit-scrollbar { display: none; }
+.ig a { flex: none; width: 46vw; max-width: 220px; scroll-snap-align: start; text-decoration: none; color: var(--text); }
+.ig img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 20px; background: var(--bg2); transition: transform 500ms var(--ease); }
+.ig a:hover img { transform: translateY(-4px); }
+.ig a:active img { transform: scale(.98); }
+.ig time { display: block; margin-top: 12px; font-size: 14px; color: var(--accent); font-weight: 600; }
+.ig b { display: block; margin-top: 2px; font-size: 16px; line-height: 1.35; }
+@media (min-width: 768px) { .ig { margin: 48px -40px 0; padding: 0 40px 8px; gap: 16px; } }
+.knopka-ramka { display: inline-flex; align-items: center; min-height: 48px; margin-top: 32px; padding: 12px 24px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; font-size: 16px; transition: border-color 250ms var(--ease), transform 500ms var(--ease); }
+.knopka-ramka:hover { border-color: var(--lime); transform: translateY(-2px); }
+.knopka-ramka:active { transform: scale(.98); }
+
+/* Кнопка внизу экрана на телефоне */
+.plav { position: fixed; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 45; justify-content: space-between; opacity: 0; transform: translateY(24px); pointer-events: none; transition: opacity 300ms var(--ease), transform 500ms var(--ease); }
+.plav.vidno { opacity: 1; transform: none; pointer-events: auto; }
+@media (min-width: 960px) { .plav { display: none; } }
+@media (max-width: 959px) { footer { padding-bottom: 104px; } }
